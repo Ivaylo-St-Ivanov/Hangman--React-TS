@@ -1,0 +1,20 @@
+@use '../global-styles/' as gs;
+
+.container {
+    @include gs.flex(none, center, center);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(196, 223, 207);
+
+    &__game {
+        max-width: 50rem;
+        @include gs.flex(column, none, center);
+        gap: 2rem;
+        margin: 0 auto;
+
+        &>p {
+            font-size: '2rem';
+            text-align: 'center';
+        }
+    }
+}

@@ -5,6 +5,7 @@ import HangmanWord from './components/HangmanWord';
 import HangmanKeyboard from './components/HangmanKeyboard';
 
 import words from './wordsList.json';
+import './global-styles/App.scss';
 
 function App() {
     const [wordToGuess, setWordToGuess] = useState<string>('');
@@ -18,21 +19,13 @@ function App() {
     console.log(wordToGuess);
 
     return (
-        <div
-            style={{
-                maxWidth: '50rem',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '2rem',
-                margin: '0 auto',
-                alignItems: 'center'
-            }}>
-
-            <div style={{ fontSize: '2rem', textAlign: 'center' }}>Lose Win</div>
-            <HangmanDrawing />
-            <HangmanWord />
-            <HangmanKeyboard />
-
+        <div className="container">
+            <main className="container__game">
+                <p>Lose Win</p>
+                <HangmanDrawing />
+                <HangmanWord />
+                <HangmanKeyboard />
+            </main>
         </div>
     );
 }
