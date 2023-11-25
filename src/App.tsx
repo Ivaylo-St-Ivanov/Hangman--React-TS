@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import HangmanDrawing from './components/HangmanDrawing/HangmanDrawing';
-import HangmanWord from './components/HangmanWord';
+import HangmanWord from './components/HangmanWord/HangmanWord';
 import HangmanKeyboard from './components/HangmanKeyboard';
 
 import words from './wordsList.json';
