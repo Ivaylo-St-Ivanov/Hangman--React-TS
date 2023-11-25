@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 
 import HangmanDrawing from './components/HangmanDrawing/HangmanDrawing';
 import HangmanWord from './components/HangmanWord/HangmanWord';
-import HangmanKeyboard from './components/HangmanKeyboard';
+import HangmanKeyboard from './components/HangmanKeyboard/HangmanKeyboard';
 
-import words from './wordsList.json';
+import words from './utils/wordsList.json';
 import './global-styles/App.scss';
 
 function App() {
@@ -24,7 +24,9 @@ function App() {
                 <p>Lose Win</p>
                 <HangmanDrawing />
                 <HangmanWord />
-                <HangmanKeyboard />
+                <div className="container__game__keyboard">
+                    <HangmanKeyboard />
+                </div>
             </main>
         </div>
     );
