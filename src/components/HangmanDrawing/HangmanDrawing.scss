@@ -1,0 +1,97 @@
+@use '../../global-styles/' as gs;
+
+.drawing-wrapper {
+    position: relative;
+
+    &__head {
+        width: 3.125rem;
+        height: 3.125rem;
+        border-radius: 100%;
+        border: 0.625rem solid gs.$drawing-color;
+        position: absolute;
+        top: 3rem;
+        right: -1.25rem;
+    }
+
+    &__body {
+        width: 0.625rem;
+        height: 6.25rem;
+        background: gs.$drawing-color;
+        position: absolute;
+        top: 6rem;
+        right: 0;
+    }
+
+    &__right-arm {
+        width: 6.25rem;
+        height: 0.625rem;
+        background: gs.$drawing-color;
+        position: absolute;
+        top: 7.5rem;
+        right: -6.25rem;
+        rotate: -30deg;
+        transform-origin: left bottom;
+    }
+
+    &__left-arm {
+        width: 6.25rem;
+        height: 0.625rem;
+        background: gs.$drawing-color;
+        position: absolute;
+        top: 7.5rem;
+        right: 0.625rem;
+        rotate: 30deg;
+        transform-origin: right bottom;
+    }
+
+    &__right-leg {
+        width: 6.25rem;
+        height: 0.625rem;
+        background: gs.$drawing-color;
+        position: absolute;
+        top: 11.5rem;
+        right: -5.625rem;
+        rotate: 60deg;
+        transform-origin: left bottom;
+    }
+
+    &__left-leg {
+        width: 6.25rem;
+        height: 0.625rem;
+        background: gs.$drawing-color;
+        position: absolute;
+        top: 11.5rem;
+        right: 0;
+        rotate: -60deg;
+        transform-origin: right bottom;
+    }
+
+    &__rope-line {
+        height: 3.125rem;
+        width: 0.625rem;
+        background: gs.$drawing-color;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    &__top-line {
+        height: 0.625rem;
+        width: 12.5rem;
+        background: gs.$drawing-color;
+        margin-left: 7.5rem;
+    }
+
+    &__vertical-line {
+        height: 25rem;
+        width: 0.625rem;
+        background: gs.$drawing-color;
+        margin-left: 7.5rem;
+    }
+
+    &__bottom-line {
+        height: 0.625rem;
+        width: 15.625rem;
+        background: gs.$drawing-color;
+    }
+}
