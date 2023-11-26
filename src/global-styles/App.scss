@@ -1,10 +1,11 @@
 @use '../global-styles/' as gs;
 
 .container {
-    @include gs.flex(none, center, center);
+    // @include gs.flex(none, center, center);
     // width: 100vw;
-    // height: 100vh;
-    background-color: rgb(196, 223, 207);
+    min-height: 100vh;
+    background-color: rgb(223, 251, 234);
+    padding: 3.5rem;
 
     &__game {
         max-width: 50rem;

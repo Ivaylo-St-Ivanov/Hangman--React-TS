@@ -1,10 +1,16 @@
+@use '../../global-styles/' as gs;
+
 .word {
     display: flex;
     gap: 0.25em;
-    font-size: 6rem;
+    font-size: 4rem;
     font-weight: bold;
     text-transform: uppercase;
     font-family: monospace;
+
+    @include gs.display(tablet) {
+        font-size: 3rem;
+    }
 
     &__letter {
         border-bottom: 0.1em solid black;

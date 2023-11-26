@@ -3,95 +3,163 @@
 .drawing-wrapper {
     position: relative;
 
+    @include gs.display(mobile) {
+        margin-right: 3.25rem;
+    }
+
     &__head {
-        width: 3.125rem;
-        height: 3.125rem;
+        width: 2.5rem;
+        height: 2.5rem;
         border-radius: 100%;
-        border: 0.625rem solid gs.$drawing-color;
+        border: 0.35rem solid gs.$drawing-color;
         position: absolute;
         top: 3rem;
-        right: -1.25rem;
+        right: -1.1rem;
+
+        @include gs.display(mobile) {
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 0.3rem solid gs.$drawing-color;
+            top: 2rem;
+            right: -0.7rem;
+        }
     }
 
     &__body {
-        width: 0.625rem;
-        height: 6.25rem;
+        width: 0.4rem;
+        height: 5rem;
         background: gs.$drawing-color;
         position: absolute;
-        top: 6rem;
+        top: 5.5rem;
         right: 0;
+
+        @include gs.display(mobile) {
+            width: 0.3rem;
+            height: 4rem;
+            top: 3.5rem;
+        }
     }
 
     &__right-arm {
-        width: 6.25rem;
-        height: 0.625rem;
+        width: 4rem;
+        height: 0.4rem;
         background: gs.$drawing-color;
         position: absolute;
-        top: 7.5rem;
-        right: -6.25rem;
+        top: 6.5rem;
+        right: -4rem;
         rotate: -30deg;
         transform-origin: left bottom;
+
+        @include gs.display(mobile) {
+            width: 3rem;
+            height: 0.3rem;
+            top: 4.25rem;
+            right: -3rem;
+        }
     }
 
     &__left-arm {
-        width: 6.25rem;
-        height: 0.625rem;
+        width: 4rem;
+        height: 0.4rem;
         background: gs.$drawing-color;
         position: absolute;
-        top: 7.5rem;
-        right: 0.625rem;
+        top: 6.5rem;
+        right: 0.4rem;
         rotate: 30deg;
         transform-origin: right bottom;
+
+        @include gs.display(mobile) {
+            width: 3rem;
+            height: 0.3rem;
+            top: 4.25rem;
+            right: 0.25rem;
+        }
     }
 
     &__right-leg {
-        width: 6.25rem;
-        height: 0.625rem;
+        width: 4rem;
+        height: 0.4rem;
         background: gs.$drawing-color;
         position: absolute;
-        top: 11.5rem;
-        right: -5.625rem;
+        top: 10rem;
+        right: -3.65rem;
         rotate: 60deg;
         transform-origin: left bottom;
+
+        @include gs.display(mobile) {
+            width: 3rem;
+            height: 0.3rem;
+            top: 7.25rem;
+            right: -2.75rem;
+        }
     }
 
     &__left-leg {
-        width: 6.25rem;
-        height: 0.625rem;
+        width: 4rem;
+        height: 0.4rem;
         background: gs.$drawing-color;
         position: absolute;
-        top: 11.5rem;
+        top: 10rem;
         right: 0;
         rotate: -60deg;
         transform-origin: right bottom;
+
+        @include gs.display(mobile) {
+            width: 3rem;
+            height: 0.3rem;
+            top: 7.25rem;
+            right: 0rem;
+        }
     }
 
     &__rope-line {
         height: 3.125rem;
-        width: 0.625rem;
+        width: 0.25rem;
         background: gs.$drawing-color;
         position: absolute;
         top: 0;
         right: 0;
+
+        @include gs.display(mobile) {
+            height: 2rem;
+            width: 0.2rem;
+        }
     }
 
     &__top-line {
-        height: 0.625rem;
-        width: 12.5rem;
+        height: 0.5rem;
+        width: 10rem;
         background: gs.$drawing-color;
-        margin-left: 7.5rem;
+        margin-left: 6.5rem;
+
+        @include gs.display(mobile) {
+            height: 0.3rem;
+            width: 7rem;
+            margin-left: 5rem;
+        }
     }
 
     &__vertical-line {
-        height: 25rem;
-        width: 0.625rem;
+        height: 16rem;
+        width: 0.5rem;
         background: gs.$drawing-color;
-        margin-left: 7.5rem;
+        margin-left: 6.5rem;
+
+        @include gs.display(mobile) {
+            height: 13rem;
+            width: 0.3rem;
+            margin-left: 5rem;
+        }
     }
 
     &__bottom-line {
-        height: 0.625rem;
-        width: 15.625rem;
+        height: 0.5rem;
+        width: 12.5rem;
         background: gs.$drawing-color;
+
+        @include gs.display(mobile) {
+            height: 0.3rem;
+            width: 9.5rem;
+        }
     }
 }
