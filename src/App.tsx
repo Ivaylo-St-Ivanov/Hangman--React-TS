@@ -9,7 +9,10 @@ import './global-styles/App.scss';
 
 function App() {
     const [wordToGuess, setWordToGuess] = useState<string>('');
-    // const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
+
+    const incorrectLetters = guessedLetters.filter(letter => !wordToGuess.includes(letter));
 
     useEffect(() => {
         const word = words[Math.floor(Math.random() * words.length)];
@@ -22,7 +25,7 @@ function App() {
         <div className="container">
             <main className="container__game">
                 <p>Lose Win</p>
-                <HangmanDrawing />
+                <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
                 <HangmanWord />
                 <div className="container__game__keyboard">
                     <HangmanKeyboard />
