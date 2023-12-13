@@ -2,16 +2,16 @@ import React from 'react';
 
 import './HangmanWord.scss';
 
-interface HangmanWordProps { }
+interface HangmanWordProps {
+    guessedLetters: string[],
+    wordToGuess: string
+}
 
-const HangmanWord: React.FC<HangmanWordProps> = () => {
-
-    const word = 'test';
-    const guessedLetters = ['t'];
+const HangmanWord: React.FC<HangmanWordProps> = ({ guessedLetters, wordToGuess }) => {
 
     return (
         <div className="word">
-            {word.split('').map((letter, index) => (
+            {wordToGuess.split('').map((letter, index) => (
                 <span key={index} className="word__letter">
                     <span className="word__letter" style={{
                         visibility:

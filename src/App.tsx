@@ -19,14 +19,12 @@ function App() {
         setWordToGuess(word);
     }, []);
 
-    console.log(wordToGuess);
-
     return (
         <div className="container">
             <main className="container__game">
                 <p>Lose Win</p>
                 <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
-                <HangmanWord />
+                <HangmanWord guessedLetters={guessedLetters} wordToGuess={wordToGuess} />
                 <div className="container__game__keyboard">
                     <HangmanKeyboard />
                 </div>
