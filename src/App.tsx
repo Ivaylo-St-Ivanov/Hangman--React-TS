@@ -1,5 +1,6 @@
 import { useState, useEffect, KeyboardEvent, useCallback } from 'react';
 
+import Header from './components/Header/Header';
 import HangmanDrawing from './components/HangmanDrawing/HangmanDrawing';
 import HangmanWord from './components/HangmanWord/HangmanWord';
 import HangmanKeyboard from './components/HangmanKeyboard/HangmanKeyboard';
@@ -59,6 +60,7 @@ function App() {
 
     return (
         <div className="container">
+            <Header />
             <main className="container__game">
                 <p>
                     {isWinner && 'Winner! - Refresh to try again'}

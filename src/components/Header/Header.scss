@@ -1,0 +1,61 @@
+@use '../../global-styles/' as gs;
+
+.header {
+    padding: 1rem 3rem;
+    @include gs.flex(none, space-between, center);
+    background: rgba(148, 187, 233);
+    border-bottom: 0.1875rem solid rgb(81, 0, 128);
+
+    @include gs.display(mobile) {
+        padding: 1rem;
+    }
+
+    &__title {
+        margin: unset;
+        background-image: linear-gradient(to top, #e20a0a, #ffb300e2);
+        color: transparent;
+        background-clip: text;
+
+        &:hover {
+            transform: scale(1.1);
+            transition: 0.8s;
+        }
+
+        @include gs.display(mobile) {
+            font-size: 1.75rem;
+        }
+    }
+
+    &__theme-btn {
+        width: 3rem;
+        padding: 0.5rem;
+        background-color: lightgray;
+        border: 1px solid rgb(8, 108, 221);
+        border-radius: 2rem;
+        @include gs.flex(none, center, center);
+        cursor: pointer;
+
+        @include gs.display(mobile) {
+            width: 2.5rem;
+        }
+
+        &>svg {
+            font-size: 1.25rem;
+            color: black;
+
+            @include gs.display(mobile) {
+                font-size: 1rem;
+            }
+        }
+
+        &__moon:hover {
+            color: yellow;
+            transition: 0.5s;
+        }
+
+        &__sun:hover {
+            color: orangered;
+            transition: 0.5s;
+        }
+    }
+}
