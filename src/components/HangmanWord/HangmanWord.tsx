@@ -4,10 +4,11 @@ import './HangmanWord.scss';
 
 interface HangmanWordProps {
     guessedLetters: string[],
-    wordToGuess: string
+    wordToGuess: string,
+    reveal?: boolean
 }
 
-const HangmanWord: React.FC<HangmanWordProps> = ({ guessedLetters, wordToGuess }) => {
+const HangmanWord: React.FC<HangmanWordProps> = ({ guessedLetters, wordToGuess, reveal = false }) => {
 
     return (
         <div className="word">
@@ -15,7 +16,8 @@ const HangmanWord: React.FC<HangmanWordProps> = ({ guessedLetters, wordToGuess }
                 <span key={index} className="word__letter">
                     <span className="word__letter" style={{
                         visibility:
-                            guessedLetters.includes(letter) ? 'visible' : 'hidden'
+                            guessedLetters.includes(letter) || reveal ? 'visible' : 'hidden',
+                        color: !guessedLetters.includes(letter) && reveal ? 'red' : 'black'
                     }}>{letter}</span>
                 </span>
             ))}
