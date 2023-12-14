@@ -1,0 +1,11 @@
+@use '../../global-styles/' as gs;
+
+footer {
+    width: 100%;
+    @include gs.flex(none, center, none);
+    
+    @include gs.display(mobile) {
+        margin-top: 3rem;
+        padding-bottom: 0.5rem;
+    }
+}

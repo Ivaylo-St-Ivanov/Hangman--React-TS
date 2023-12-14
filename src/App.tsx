@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import HangmanDrawing from './components/HangmanDrawing/HangmanDrawing';
 import HangmanWord from './components/HangmanWord/HangmanWord';
 import HangmanKeyboard from './components/HangmanKeyboard/HangmanKeyboard';
+import Footer from './components/Footer/Footer';
 
 import words from './utils/wordsList.json';
 import './global-styles/App.scss';
@@ -81,6 +82,7 @@ function App() {
                     />
                 </div>
             </main>
+            <Footer />
         </div>
     );
 }

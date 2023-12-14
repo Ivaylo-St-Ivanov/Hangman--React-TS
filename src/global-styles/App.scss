@@ -1,17 +1,17 @@
 @use '../global-styles/' as gs;
 
 .container {
-    // @include gs.flex(none, center, center);
-    // width: 100vw;
     min-height: 100vh;
-    background-color: rgb(223, 251, 234);
-    padding: 3.5rem;
-
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 44%); 
+    
     &__game {
         max-width: 50rem;
         @include gs.flex(column, none, center);
         gap: 2rem;
         margin: 0 auto;
+        padding: 0 1.5rem;
+        min-height: 90vh;
 
         &>p {
             font-size: '2rem';

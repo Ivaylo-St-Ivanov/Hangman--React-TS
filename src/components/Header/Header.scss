@@ -3,7 +3,8 @@
 .header {
     padding: 1rem 3rem;
     @include gs.flex(none, space-between, center);
-    background: rgba(148, 187, 233);
+    background: rgb(148,187,223);
+    background: linear-gradient(0deg, rgba(148,187,223,0.9766107126444328) 0%, rgba(120,160,220,1) 13%, rgba(94,135,218,0.9037815809917717) 33%); 
     border-bottom: 0.1875rem solid rgb(81, 0, 128);
 
     @include gs.display(mobile) {
@@ -12,7 +13,7 @@
 
     &__title {
         margin: unset;
-        background-image: linear-gradient(to top, #e20a0a, #ffb300e2);
+        background-image: linear-gradient(to top, #e20a0a, #ffe600e2);
         color: transparent;
         background-clip: text;
 
