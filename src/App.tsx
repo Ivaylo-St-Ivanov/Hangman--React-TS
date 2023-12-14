@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, KeyboardEvent, useCallback } from 'react';
 
 import HangmanDrawing from './components/HangmanDrawing/HangmanDrawing';
 import HangmanWord from './components/HangmanWord/HangmanWord';
@@ -9,7 +9,6 @@ import './global-styles/App.scss';
 
 function App() {
     const [wordToGuess, setWordToGuess] = useState<string>('');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
     const incorrectLetters = guessedLetters.filter(letter => !wordToGuess.includes(letter));
@@ -19,6 +18,36 @@ function App() {
         setWordToGuess(word);
     }, []);
 
+    const addGuessedLetter = useCallback(
+        (letter: string) => {
+            if (guessedLetters.includes(letter)) {
+                return;
+            }
+
+            setGuessedLetters(state => [...state, letter]);
+        },
+        [guessedLetters]
+    );
+
+    useEffect(() => {
+        const handler = (e: KeyboardEvent) => {
+            const key = e.key;
+
+            if (key.match(/^[a-z]$/)) {
+                return;
+            }
+
+            e.preventDefault();
+            addGuessedLetter(key);
+        };
+
+        document.addEventListener('keypress', handler);
+
+        return () => {
+            document.removeEventListener('keypress', handler);
+        };
+    }, [addGuessedLetter, guessedLetters]);
+
     return (
         <div className="container">
             <main className="container__game">
@@ -26,7 +55,11 @@ function App() {
                 <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
                 <HangmanWord guessedLetters={guessedLetters} wordToGuess={wordToGuess} />
                 <div className="container__game__keyboard">
-                    <HangmanKeyboard />
+                    <HangmanKeyboard
+                        activeLetters={guessedLetters.filter(letter => wordToGuess.includes(letter))}
+                        inactiveLetters={incorrectLetters}
+                        addGuessedLetter={addGuessedLetter}
+                    />
                 </div>
             </main>
         </div>

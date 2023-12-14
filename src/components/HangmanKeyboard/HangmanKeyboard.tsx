@@ -4,14 +4,29 @@ import { keys } from '../../utils/keys';
 
 import './HangmanKeyboard.scss';
 
-interface HangmanKeyboardProps { }
+interface HangmanKeyboardProps {
+    activeLetters: string[],
+    inactiveLetters: string[],
+    addGuessedLetter: (letter: string) => void
+}
 
-const HangmanKeyboard: React.FC<HangmanKeyboardProps> = () => {
+const HangmanKeyboard: React.FC<HangmanKeyboardProps> = ({
+    activeLetters, inactiveLetters, addGuessedLetter
+}) => {
     return (
         <div className="keyboard">
-            {keys.map(key => (
-                <button key={key} className="keyboard__btn">{key}</button>
-            ))}
+            {keys.map(key => {
+                const isActive = activeLetters.includes(key);
+                const isInactive = inactiveLetters.includes(key);
+                return (
+                    <button 
+                        onClick={() => addGuessedLetter(key)} 
+                        key={key} 
+                        className={`keyboard__btn ${isActive ? 'keyboard__btn__active' : ''} ${isInactive ? 'keyboard__btn__inactive' : ''}`}
+                        disabled={isActive || isInactive}
+                    >{key}</button>
+                );
+            })}
         </div>
     );
 };
