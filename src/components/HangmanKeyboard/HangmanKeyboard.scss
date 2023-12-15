@@ -39,4 +39,29 @@
             opacity: 0.3;
         }
     }
+
+    &__btn-dark {
+        border: 3px solid rgb(8, 2, 189);
+        color: rgb(8, 2, 189);
+
+        &:hover:not(:disabled),
+        &:focus:not(:disabled) {
+            background-color: rgb(3, 90, 252);
+        }
+
+        &__active {
+            background-color: rgb(3, 136, 252);
+            color: white;
+        }
+    }
+
+    &__refresh-btn {
+        border: 3px solid black;
+        background-color: lightgray;
+        cursor: pointer;
+
+        &:hover {
+            background-color: white;
+        }
+    }
 }

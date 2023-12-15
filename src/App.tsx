@@ -16,7 +16,7 @@ const getWord = () => {
 };
 
 function App() {
-    const [wordToGuess, setWordToGuess] = useState<string>('');
+    const [wordToGuess, setWordToGuess] = useState<string>(getWord());
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
     const { isDarkTheme } = useContext(ThemeContext);
 
@@ -24,11 +24,6 @@ function App() {
 
     const isLoser = incorrectLetters.length >= 6;
     const isWinner = wordToGuess.split('').every(letter => guessedLetters.includes(letter));
-
-    useEffect(() => {
-        const word = getWord();
-        setWordToGuess(word);
-    }, []);
 
     const addGuessedLetter = useCallback(
         (letter: string) => {
@@ -62,14 +57,19 @@ function App() {
         };
     }, [addGuessedLetter, guessedLetters]);
 
+    const refresh = () => {
+        setGuessedLetters([]);
+        setWordToGuess(getWord());
+    };
+
     return (
         <div className={isDarkTheme ? 'container container-dark' : 'container'}>
             <Header />
             <main className="container__game">
                 <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
                 <p>
-                    {isWinner && 'Winner! - Refresh to try again'}
-                    {isLoser && 'Nice Try - Refresh to try again'}
+                    {isWinner && 'Winner! - click or press \'Enter\' to try again'}
+                    {isLoser && 'Nice Try - click or press \'Enter\' to try again'}
                 </p>
                 <HangmanWord
                     guessedLetters={guessedLetters}
@@ -82,6 +82,7 @@ function App() {
                         inactiveLetters={incorrectLetters}
                         addGuessedLetter={addGuessedLetter}
                         disabled={isWinner || isLoser}
+                        refresh={refresh}
                     />
                 </div>
             </main>
