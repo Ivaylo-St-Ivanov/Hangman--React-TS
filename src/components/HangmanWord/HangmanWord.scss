@@ -9,7 +9,7 @@
     font-family: monospace;
 
     @include gs.display(tablet) {
-        font-size: 3rem;
+        font-size: 2rem;
     }
 
     &__letter {
