@@ -6,6 +6,7 @@
     background: rgb(148,187,223);
     background: linear-gradient(0deg, rgba(148,187,223,0.9766107126444328) 0%, rgba(120,160,220,1) 13%, rgba(94,135,218,0.9037815809917717) 33%); 
     border-bottom: 0.1875rem solid rgb(81, 0, 128);
+    box-shadow: 0 0 0.5rem white;
 
     @include gs.display(mobile) {
         padding: 1rem;
@@ -59,4 +60,10 @@
             transition: 0.5s;
         }
     }
+}
+
+.header-dark {
+    background: rgb(107,138,166);
+    background: linear-gradient(0deg, rgba(107,138,166,0.9766107126444328) 0%, rgba(37,64,105,1) 23%, rgba(1,2,4,0.9037815809917717) 56%); 
+    box-shadow: 0 0 1rem white;
 }

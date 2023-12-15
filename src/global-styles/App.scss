@@ -24,3 +24,8 @@
         }
     }
 }
+
+.container-dark {
+    background: rgb(107,138,166);
+    background: radial-gradient(circle, rgba(107,138,166,0.98) 1%, rgba(72,54,63,1) 62%, rgba(1,2,4,0.9906163148853291) 90%); 
+}
