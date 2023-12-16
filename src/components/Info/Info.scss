@@ -20,14 +20,30 @@
             font-size: 1rem;
         }
 
-        &>svg:first-of-type:hover {
-            color: greenyellow;
-            cursor: pointer;
+        &__rules {
+            &>svg:hover {
+                color: greenyellow;
+                cursor: pointer;
+            }
+
+            &:hover .text {
+                display: block;
+            }
         }
 
-        &>svg:last-of-type:hover {
-            color: yellow;
-            cursor: pointer;
+        &__hint {
+            &>svg:hover {
+                color: yellow;
+                cursor: pointer;
+            }
+
+            &:hover .text {
+                display: block;
+            }
+        }
+
+        &__dark {
+            color: lightblue;
         }
     }
 
@@ -43,5 +59,60 @@
             font-size: unset;
             flex-direction: row;
         }
+
+        &__dark {
+            color: lightblue;
+        }
+    }
+}
+
+.text,
+.click-icon {
+    display: none;
+    position: absolute;
+    left: 2.25rem;
+    border: 2px solid black;
+    border-radius: 0.5rem;
+    width: 35%;
+    max-height: 70vh;
+    overflow: scroll;
+    padding: 1rem;
+    box-shadow: 0 0 0.5rem white;
+    backdrop-filter: blur(0.3rem);
+    z-index: 9;
+    animation: showText 0.8s forwards;
+
+    @include gs.display(tablet) {
+        width: 70%;
+    }
+
+    &__dark-blue {
+        color: rgb(41, 41, 232);
+    }
+}
+
+.rules {
+    top: 0.5rem;
+}
+
+.hint {
+    top: 3rem;
+}
+
+.click-icon {
+    display: block;
+}
+
+@keyframes showText {
+    0% {
+        opacity: 0;
+        transform: translate(110%);
+        transition: 0.5s;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+        transition: 0.5s;
     }
 }
