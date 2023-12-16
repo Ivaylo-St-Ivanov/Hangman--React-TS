@@ -1,0 +1,47 @@
+@use '../../global-styles/' as gs;
+
+.info {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    @include gs.flex(none, space-between, none);
+    padding: 1rem;
+
+    @include gs.display(mobile) {
+        padding: 0.5rem;
+    }
+
+    &__icons {
+        @include gs.flex(column, none, none);
+        gap: 1rem;
+        font-size: 1.25rem;
+
+        @include gs.display(mobile) {
+            font-size: 1rem;
+        }
+
+        &>svg:first-of-type:hover {
+            color: greenyellow;
+            cursor: pointer;
+        }
+
+        &>svg:last-of-type:hover {
+            color: yellow;
+            cursor: pointer;
+        }
+    }
+
+    &__result {
+        margin-right: 1rem;
+        @include gs.flex(column, none, none);
+        gap: 0.5rem;
+        font-size: 1.25rem;
+
+        @include gs.display(mobile) {
+            margin-right: 0.5rem;
+            gap: 1rem;
+            font-size: unset;
+            flex-direction: row;
+        }
+    }
+}

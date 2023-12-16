@@ -3,6 +3,7 @@ import { useState, useEffect, KeyboardEvent, useCallback, useContext } from 'rea
 import { ThemeContext } from './context/ThemeContext';
 
 import Header from './components/Header/Header';
+import Info from './components/Info/Info';
 import HangmanDrawing from './components/HangmanDrawing/HangmanDrawing';
 import HangmanWord from './components/HangmanWord/HangmanWord';
 import HangmanKeyboard from './components/HangmanKeyboard/HangmanKeyboard';
@@ -65,27 +66,33 @@ function App() {
     return (
         <div className={isDarkTheme ? 'container container-dark' : 'container'}>
             <Header />
-            <main className="container__game">
-                <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
-                <p>
-                    {isWinner && 'Winner! - click or press \'Enter\' to try again'}
-                    {isLoser && 'Nice Try - click or press \'Enter\' to try again'}
-                </p>
-                <HangmanWord
-                    guessedLetters={guessedLetters}
-                    wordToGuess={wordToGuess}
-                    reveal={isLoser}
-                />
-                <div className="container__game__keyboard">
-                    <HangmanKeyboard
-                        activeLetters={guessedLetters.filter(letter => wordToGuess.includes(letter))}
-                        inactiveLetters={incorrectLetters}
-                        addGuessedLetter={addGuessedLetter}
-                        disabled={isWinner || isLoser}
-                        refresh={refresh}
+
+            <main className="container__main">
+                <Info />
+
+                <div className="container__main__game">
+                    <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
+                    <p>
+                        {isWinner && 'Winner! - click or press \'Enter\' to try again'}
+                        {isLoser && 'Nice Try - click or press \'Enter\' to try again'}
+                    </p>
+                    <HangmanWord
+                        guessedLetters={guessedLetters}
+                        wordToGuess={wordToGuess}
+                        reveal={isLoser}
                     />
+                    <div className="container__main__game__keyboard">
+                        <HangmanKeyboard
+                            activeLetters={guessedLetters.filter(letter => wordToGuess.includes(letter))}
+                            inactiveLetters={incorrectLetters}
+                            addGuessedLetter={addGuessedLetter}
+                            disabled={isWinner || isLoser}
+                            refresh={refresh}
+                        />
+                    </div>
                 </div>
             </main>
+
             <Footer />
         </div>
     );
