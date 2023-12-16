@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { FaInfo } from 'react-icons/fa';
 import { GrInfo } from 'react-icons/gr';
 
@@ -8,12 +8,37 @@ import InfoText from './InfoText';
 import HintText from './hintText';
 import './Info.scss';
 
-interface InfoProps { }
+interface InfoProps {
+    isWinner?: boolean
+    isLoser?: boolean
+    wordToGuess: string
+}
 
-const Info: React.FC<InfoProps> = () => {
+const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess }) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const [isRuleClick, setIsRuleClick] = useState<boolean>(false);
     const [isHintClick, setIsHintClick] = useState<boolean>(false);
+    const [score, setScore] = useState<string[]>([]);
+    const [guessedWords, setGuessedWords] = useState<number>(0);
+    const [bestResult, setBestResult] = useState<number>(0);
+
+    useEffect(() => {
+        if (isWinner) {
+            if (!score.includes(wordToGuess)) {
+                const res = score.length;
+                
+                setScore(state => [...state, wordToGuess]);
+                setGuessedWords(res + 1);
+            }
+        } else if (isLoser && score.length > 0) {
+            if (guessedWords > bestResult) {
+                setBestResult(guessedWords);
+            }
+            
+            setScore([]);
+            setGuessedWords(0);
+        }
+    }, [isWinner, isLoser, score, wordToGuess, guessedWords, bestResult]);
 
     const onRulesClick = () => {
         setIsHintClick(false);
@@ -39,8 +64,8 @@ const Info: React.FC<InfoProps> = () => {
             </div>
 
             <div className={isDarkTheme ? 'info__result info__result__dark' : 'info__result'}>
-                <span>Guessed words: 0</span>
-                <span>Best result: 9</span>
+                <span>Guessed words: {guessedWords}</span>
+                <span>Best result: {bestResult}</span>
             </div>
         </div>
     );

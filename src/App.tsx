@@ -68,7 +68,7 @@ function App() {
             <Header />
 
             <main className="container__main">
-                <Info />
+                <Info isWinner={isWinner} isLoser={isLoser} wordToGuess={wordToGuess} />
 
                 <div className="container__main__game">
                     <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
