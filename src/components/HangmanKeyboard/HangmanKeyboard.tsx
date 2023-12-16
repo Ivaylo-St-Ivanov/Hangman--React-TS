@@ -32,7 +32,7 @@ const HangmanKeyboard: React.FC<HangmanKeyboardProps> = ({
                     >{key}</button>
                 );
             })}
-            <button onClick={refresh} className="keyboard__refresh-btn" >Enter / Refresh</button>
+            <button onClick={refresh} className="keyboard__refresh-btn" >Enter</button>
         </div>
     );
 };

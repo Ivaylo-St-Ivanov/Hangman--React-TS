@@ -58,6 +58,7 @@
     &__refresh-btn {
         border: 3px solid black;
         background-color: lightgray;
+        aspect-ratio: 1 / 1;
         cursor: pointer;
 
         &:hover {

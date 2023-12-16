@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useState } from 'react';
+import React, { ReactNode, createContext, useEffect, useState } from 'react';
 
 export const ThemeContext = createContext({
     isDarkTheme: false,
@@ -10,7 +10,12 @@ interface ThemeProviderProp {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProp> = ({ children }) => {
-    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
+    const storedTheme = localStorage.getItem('isDarkTheme');
+    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(storedTheme ? JSON.parse(storedTheme) : false);
+
+    useEffect(() => {
+        localStorage.setItem('isDarkTheme', JSON.stringify(isDarkTheme));
+    }, [isDarkTheme]);
 
     const setDarkTheme = () => {
         setIsDarkTheme(state => !state);
