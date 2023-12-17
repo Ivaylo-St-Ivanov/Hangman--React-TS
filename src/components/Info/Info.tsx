@@ -18,25 +18,31 @@ const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess }) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const [isRuleClick, setIsRuleClick] = useState<boolean>(false);
     const [isHintClick, setIsHintClick] = useState<boolean>(false);
-    const [score, setScore] = useState<string[]>([]);
-    const [guessedWords, setGuessedWords] = useState<number>(0);
-    const [bestResult, setBestResult] = useState<number>(0);
+    const localStorageGuessedWords = localStorage.getItem('score');
+    const localStorageBestResult = localStorage.getItem('bestResult');
+    const [score, setScore] = useState<string[]>(localStorageGuessedWords ? JSON.parse(localStorageGuessedWords) : []);
+    const [guessedWords, setGuessedWords] = useState<number>(score.length);
+    const [bestResult, setBestResult] = useState<number>(localStorageBestResult ? JSON.parse(localStorageBestResult) : 0);
 
     useEffect(() => {
-        if (isWinner) {
-            if (!score.includes(wordToGuess)) {
-                const res = score.length;
-                
-                setScore(state => [...state, wordToGuess]);
-                setGuessedWords(res + 1);
-            }
+        localStorage.setItem('score', JSON.stringify(score));
+    }, [score]);
+
+    useEffect(() => {
+        if (isWinner && !score.includes(wordToGuess)) {
+            const res = score.length;
+
+            setScore(state => [...state, wordToGuess]);
+            setGuessedWords(res + 1);
         } else if (isLoser && score.length > 0) {
             if (guessedWords > bestResult) {
                 setBestResult(guessedWords);
+                localStorage.setItem('bestResult', JSON.stringify(guessedWords));
             }
-            
+
             setScore([]);
             setGuessedWords(0);
+            localStorage.removeItem('score');
         }
     }, [isWinner, isLoser, score, wordToGuess, guessedWords, bestResult]);
 
