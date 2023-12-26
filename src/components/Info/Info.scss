@@ -42,6 +42,19 @@
             }
         }
 
+        &__settings {
+            font-size: 1.5rem;
+
+            &>svg:hover {
+                color: rgb(217, 0, 255);
+                cursor: pointer;
+            }
+
+            &:hover .text {
+                display: block;
+            }
+        }
+
         &__dark {
             color: lightblue;
         }
@@ -97,6 +110,10 @@
 
 .hint {
     top: 3rem;
+}
+
+.settings {
+    top: 7rem;
 }
 
 .click-icon {

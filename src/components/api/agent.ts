@@ -10,6 +10,11 @@ const getRandomWord = async () => {
     return await request(baseUrl);
 };
 
+const getRandomWordWithFixedLength = async (length: number) => {
+    return await request(`${baseUrl}&length=${length}`);
+};
+
 export const agent = {
-    getRandomWord
+    getRandomWord,
+    getRandomWordWithFixedLength
 };

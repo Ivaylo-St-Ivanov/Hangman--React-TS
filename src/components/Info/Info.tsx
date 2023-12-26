@@ -1,23 +1,27 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { FaInfo } from 'react-icons/fa';
 import { GrInfo } from 'react-icons/gr';
+import { MdOutlineSettingsSuggest } from 'react-icons/md';
 
 import { ThemeContext } from '../../context/ThemeContext';
 
 import InfoText from './InfoText';
 import HintText from './HintText';
+import Settings from './Settings';
 import './Info.scss';
 
 interface InfoProps {
     isWinner?: boolean
     isLoser?: boolean
     wordToGuess: string
+    onWordLengthChange: (wordLength: number) => void
 }
 
-const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess }) => {
+const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengthChange }) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const [isRuleClick, setIsRuleClick] = useState<boolean>(false);
     const [isHintClick, setIsHintClick] = useState<boolean>(false);
+    const [isSettingsClick, setIsSettingsClick] = useState<boolean>(false);
     const localStorageGuessedWords = localStorage.getItem('score');
     const localStorageBestResult = localStorage.getItem('bestResult');
     const [score, setScore] = useState<string[]>(localStorageGuessedWords ? JSON.parse(localStorageGuessedWords) : []);
@@ -48,12 +52,20 @@ const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess }) => {
 
     const onRulesClick = () => {
         setIsHintClick(false);
+        setIsSettingsClick(false);
         setIsRuleClick(state => !state);
     };
 
     const onHintsClick = () => {
         setIsRuleClick(false);
+        setIsSettingsClick(false);
         setIsHintClick(state => !state);
+    };
+
+    const onSettingsClick = () => {
+        setIsHintClick(false);
+        setIsRuleClick(false);
+        setIsSettingsClick(state => !state);
     };
 
     return (
@@ -66,6 +78,10 @@ const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess }) => {
                 <span onClick={onHintsClick} className="info__icons__hint">
                     <GrInfo />
                     <HintText isHintClick={isHintClick} />
+                </span>
+                <span onClick={onSettingsClick} className="info__icons__settings">
+                    <MdOutlineSettingsSuggest />
+                    <Settings isSettingsClick={isSettingsClick} onWordLengthChange={onWordLengthChange} />
                 </span>
             </div>
 
