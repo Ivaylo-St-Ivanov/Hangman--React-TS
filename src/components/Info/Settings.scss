@@ -15,4 +15,12 @@
         margin-left: 0.5rem;
         cursor: pointer;
     }
+
+    &__letters {
+        padding: 0.5rem;
+
+        &>option {
+            font-weight: bold;
+        }
+    }
 }

@@ -13,15 +13,23 @@ import Footer from './components/Footer/Footer';
 // import words from './utils/wordsList.json';
 import './global-styles/App.scss';
 
-const getWord = async (wordLength: number) => {
+const getWord = async (wordLength: number, firstLetter: string) => {
     // return words[Math.floor(Math.random() * words.length)];
 
     let word;
 
     if (wordLength >= 3 && wordLength <= 9) {
-        word = await agent.getRandomWordWithFixedLength(wordLength);
+        if (firstLetter) {
+            word = await agent.getRandomWordWithFixedLengthAndFixedFirstLetter(wordLength, firstLetter);
+        } else {
+            word = await agent.getRandomWordWithFixedLength(wordLength);
+        }
     } else {
-        word = await agent.getRandomWord();
+        if (firstLetter) {
+            word = await agent.getRandomWordWithFixedFirstLetter(firstLetter);
+        } else {
+            word = await agent.getRandomWord();
+        }
     }
 
     return word[0];
@@ -31,6 +39,7 @@ function App() {
     const [wordToGuess, setWordToGuess] = useState<string>('');
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
     const [wordLength, setWordLength] = useState<number>(0);
+    const [firstLetter, setFirstLetter] = useState<string>('');
     const { isDarkTheme } = useContext(ThemeContext);
 
     const incorrectLetters = guessedLetters.filter(letter => !wordToGuess.includes(letter));
@@ -39,18 +48,13 @@ function App() {
     const isWinner = wordToGuess.split('').every(letter => guessedLetters.includes(letter));
 
     useEffect(() => {
-        if (wordLength >= 3 && wordLength <= 9) {
-            agent.getRandomWordWithFixedLength(wordLength)
-                .then(res => {
-                    setWordToGuess(res[0]);
-                });
-        } else {
-            agent.getRandomWord()
-                .then(res => {
-                    setWordToGuess(res[0]);
-                });
-        }
-    }, [wordLength]);
+        const fetchWord = async () => {
+            const word = await getWord(wordLength, firstLetter);
+            setWordToGuess(word);
+        };
+
+        fetchWord();
+    }, [wordLength, firstLetter]);
 
     const addGuessedLetter = useCallback(
         (letter: string) => {
@@ -73,7 +77,7 @@ function App() {
             } else if (key == 'Enter') {
                 e.preventDefault();
                 setGuessedLetters([]);
-                setWordToGuess(await getWord(wordLength));
+                setWordToGuess(await getWord(wordLength, firstLetter));
             }
         };
 
@@ -82,15 +86,19 @@ function App() {
         return () => {
             document.removeEventListener('keypress', handler);
         };
-    }, [addGuessedLetter, guessedLetters, wordLength]);
+    }, [addGuessedLetter, guessedLetters, wordLength, firstLetter]);
 
     const refresh = async () => {
         setGuessedLetters([]);
-        setWordToGuess(await getWord(wordLength));
+        setWordToGuess(await getWord(wordLength, firstLetter));
     };
 
     const handleWordLengthChange = (newWordLength: number) => {
         setWordLength(newWordLength);
+    };
+
+    const handleFirstLetterChange = (letter: string) => {
+        setFirstLetter(letter);
     };
 
     return (
@@ -98,7 +106,13 @@ function App() {
             <Header />
 
             <main className="container__main">
-                <Info isWinner={isWinner} isLoser={isLoser} wordToGuess={wordToGuess} onWordLengthChange={handleWordLengthChange} />
+                <Info
+                    isWinner={isWinner}
+                    isLoser={isLoser}
+                    wordToGuess={wordToGuess}
+                    onWordLengthChange={handleWordLengthChange}
+                    onFirstLetterChange={handleFirstLetterChange}
+                />
 
                 <div className="container__main__game">
                     <HangmanDrawing numberOfGuesses={incorrectLetters.length} />

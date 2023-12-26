@@ -10,7 +10,7 @@ const InfoText: React.FC<InfoTextProps> = ({ isRuleClick }) => {
     const { isDarkTheme } = useContext(ThemeContext);
 
     return (
-        <p className={`rules ${isRuleClick ? 'click-icon' : 'text'}`}>
+        <p className={`rules ${isRuleClick ? 'click-icon' : 'content'}`}>
             &nbsp; <b className={isDarkTheme ? 'text__dark-blue' : ''}>Hangman Instructions</b>
             <br /><br />
             &nbsp; Guess the letters in the secret word to solve the puzzle within a certain number of guesses (6). You can guess a letter by clicking it or typing it on your keyboard. If you guess a letter which occurs in the word, it appears in all its correct positions. If the suggested letter does not occur in the word, on screen adds one element of a hanged stick figure as a tally mark. The game ends once the word is guessed, or if the stick figure is complete — signifying that all guesses have been used.

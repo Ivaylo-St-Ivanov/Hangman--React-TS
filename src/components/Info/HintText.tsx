@@ -10,7 +10,7 @@ const HintText: React.FC<HintTextPros> = ({ isHintClick }) => {
     const { isDarkTheme } = useContext(ThemeContext);
 
     return (
-        <p className={`hint ${isHintClick ? 'click-icon' : 'text'}`}>
+        <p className={`hint ${isHintClick ? 'click-icon' : 'content'}`}>
             &nbsp; <b className={isDarkTheme ? 'text__dark-blue' : ''}>Hangman Tips & Strategies</b>
             <br /><br />
             &nbsp; Use your vowels. Looking at vowels is a good way to start. Since there are only 5, you can fill in some blanks pretty quickly. They can even help you guess the answer straight away. For example, if you try the letter A and the word looks like this ‘_A_A_A’, you might be able to guess straight away that the answer is BANANA just from one letter.

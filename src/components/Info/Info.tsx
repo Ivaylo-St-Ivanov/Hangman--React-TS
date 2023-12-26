@@ -15,9 +15,10 @@ interface InfoProps {
     isLoser?: boolean
     wordToGuess: string
     onWordLengthChange: (wordLength: number) => void
+    onFirstLetterChange: (firstLetter: string) => void
 }
 
-const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengthChange }) => {
+const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengthChange, onFirstLetterChange }) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const [isRuleClick, setIsRuleClick] = useState<boolean>(false);
     const [isHintClick, setIsHintClick] = useState<boolean>(false);
@@ -81,7 +82,11 @@ const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengt
                 </span>
                 <span onClick={onSettingsClick} className="info__icons__settings">
                     <MdOutlineSettingsSuggest />
-                    <Settings isSettingsClick={isSettingsClick} onWordLengthChange={onWordLengthChange} />
+                    <Settings 
+                        isSettingsClick={isSettingsClick} 
+                        onWordLengthChange={onWordLengthChange} 
+                        onFirstLetterChange={onFirstLetterChange}
+                    />
                 </span>
             </div>
 

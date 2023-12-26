@@ -26,7 +26,7 @@
                 cursor: pointer;
             }
 
-            &:hover .text {
+            &:hover .content {
                 display: block;
             }
         }
@@ -37,20 +37,20 @@
                 cursor: pointer;
             }
 
-            &:hover .text {
+            &:hover .content {
                 display: block;
             }
         }
 
         &__settings {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
 
             &>svg:hover {
                 color: rgb(217, 0, 255);
                 cursor: pointer;
             }
 
-            &:hover .text {
+            &:hover .content {
                 display: block;
             }
         }
@@ -79,7 +79,7 @@
     }
 }
 
-.text,
+.content,
 .click-icon {
     display: none;
     position: absolute;
