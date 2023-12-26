@@ -1,6 +1,7 @@
 import { useState, useEffect, KeyboardEvent, useCallback, useContext } from 'react';
 
 import { ThemeContext } from './context/ThemeContext';
+import { agent } from './components/api/agent';
 
 import Header from './components/Header/Header';
 import Info from './components/Info/Info';
@@ -9,15 +10,19 @@ import HangmanWord from './components/HangmanWord/HangmanWord';
 import HangmanKeyboard from './components/HangmanKeyboard/HangmanKeyboard';
 import Footer from './components/Footer/Footer';
 
-import words from './utils/wordsList.json';
+// import words from './utils/wordsList.json';
 import './global-styles/App.scss';
 
-const getWord = () => {
-    return words[Math.floor(Math.random() * words.length)];
+const getWord = async () => {
+    // return words[Math.floor(Math.random() * words.length)];
+
+    const word = await agent.getRandomWord();
+
+    return word[0];
 };
 
 function App() {
-    const [wordToGuess, setWordToGuess] = useState<string>(getWord());
+    const [wordToGuess, setWordToGuess] = useState<string>('');
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
     const { isDarkTheme } = useContext(ThemeContext);
 
@@ -25,6 +30,13 @@ function App() {
 
     const isLoser = incorrectLetters.length >= 6;
     const isWinner = wordToGuess.split('').every(letter => guessedLetters.includes(letter));
+
+    useEffect(() => {
+        agent.getRandomWord()
+            .then(res => {
+                setWordToGuess(res[0]);
+            });
+    }, []);
 
     const addGuessedLetter = useCallback(
         (letter: string) => {
@@ -38,7 +50,7 @@ function App() {
     );
 
     useEffect(() => {
-        const handler = (e: KeyboardEvent) => {
+        const handler = async (e: KeyboardEvent) => {
             const key = e.key;
 
             if (key.match(/^[a-z]$/)) {
@@ -47,7 +59,7 @@ function App() {
             } else if (key == 'Enter') {
                 e.preventDefault();
                 setGuessedLetters([]);
-                setWordToGuess(getWord());
+                setWordToGuess(await getWord());
             }
         };
 
@@ -58,9 +70,9 @@ function App() {
         };
     }, [addGuessedLetter, guessedLetters]);
 
-    const refresh = () => {
+    const refresh = async () => {
         setGuessedLetters([]);
-        setWordToGuess(getWord());
+        setWordToGuess(await getWord());
     };
 
     return (

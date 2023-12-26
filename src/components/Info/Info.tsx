@@ -5,7 +5,7 @@ import { GrInfo } from 'react-icons/gr';
 import { ThemeContext } from '../../context/ThemeContext';
 
 import InfoText from './InfoText';
-import HintText from './hintText';
+import HintText from './HintText';
 import './Info.scss';
 
 interface InfoProps {
