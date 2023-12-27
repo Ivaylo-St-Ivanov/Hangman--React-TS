@@ -76,12 +76,12 @@ const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengt
                     <FaInfo onClick={onRulesClick} />
                     <InfoText isRuleClick={isRuleClick} />
                 </span>
-                <span onClick={onHintsClick} className="info__icons__hint">
-                    <GrInfo />
+                <span className="info__icons__hint">
+                    <GrInfo onClick={onHintsClick} />
                     <HintText isHintClick={isHintClick} />
                 </span>
-                <span onClick={onSettingsClick} className="info__icons__settings">
-                    <MdOutlineSettingsSuggest />
+                <span className="info__icons__settings">
+                    <MdOutlineSettingsSuggest onClick={onSettingsClick} />
                     <Settings 
                         isSettingsClick={isSettingsClick} 
                         onWordLengthChange={onWordLengthChange} 

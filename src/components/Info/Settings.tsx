@@ -42,7 +42,7 @@ const Settings: React.FC<SettingsProps> = ({ isSettingsClick, onWordLengthChange
 
             <label htmlFor="firstLetter"><b>First letter</b></label>
             <select className="settings__letters" name="firstLetter" id="firstLetter">First Letter
-                <option onClick={() => onFirstLetterChange('')}> </option>
+                <option onClick={() => onFirstLetterChange('')}>Clear</option>
                 {keys.map((k: string) => (
                     <option 
                         key={k}
