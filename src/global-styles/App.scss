@@ -15,6 +15,30 @@
             margin: 0 auto;
             padding: 0 1.5rem;
             min-height: 90vh;
+
+            @media (max-height: 750px), (orientation: landscape) {
+                min-height: 85vh;
+            }
+
+            @include gs.display(mobile) {
+                min-height: 87vh;
+            }
+
+            @media (max-width: 479px) and (max-height: 840px) {
+                min-height: 92vh;
+            }
+
+            @media (max-width: 479px) and (max-height: 780px) {
+                min-height: 100vh;
+            }
+
+            @media (max-width: 479px) and (max-height: 680px) {
+                min-height: 105vh;
+            }
+
+            @media (max-height: 470px) and (orientation: landscape) {
+                min-height: 140vh;
+            }
     
             &>p {
                 font-size: 1.5rem;

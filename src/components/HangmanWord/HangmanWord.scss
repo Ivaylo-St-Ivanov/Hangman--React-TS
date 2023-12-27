@@ -12,6 +12,10 @@
         font-size: 2rem;
     }
 
+    @media (max-height: 750px) {
+        font-size: 2rem;
+    }
+
     &__letter {
         border-bottom: 0.1em solid black;
     }

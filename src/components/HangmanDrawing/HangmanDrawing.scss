@@ -3,7 +3,11 @@
 .drawing-wrapper {
     position: relative;
 
-    @include gs.display(mobile) {
+    @include gs.display(tablet) {
+        margin-right: 3.25rem;
+    }
+
+    @media (max-height: 750px) {
         margin-right: 3.25rem;
     }
 
@@ -16,7 +20,15 @@
         top: 3rem;
         right: -1.1rem;
 
-        @include gs.display(mobile) {
+        @include gs.display(tablet) {
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 0.3rem solid gs.$drawing-color;
+            top: 2rem;
+            right: -0.7rem;
+        }
+
+        @media (max-height: 750px) {
             width: 1.5rem;
             height: 1.5rem;
             border: 0.3rem solid gs.$drawing-color;
@@ -33,7 +45,13 @@
         top: 5.5rem;
         right: 0;
 
-        @include gs.display(mobile) {
+        @include gs.display(tablet) {
+            width: 0.3rem;
+            height: 4rem;
+            top: 3.5rem;
+        }
+
+        @media (max-height: 750px) {
             width: 0.3rem;
             height: 4rem;
             top: 3.5rem;
@@ -50,7 +68,14 @@
         rotate: -30deg;
         transform-origin: left bottom;
 
-        @include gs.display(mobile) {
+        @include gs.display(tablet) {
+            width: 3rem;
+            height: 0.3rem;
+            top: 4.25rem;
+            right: -3rem;
+        }
+
+        @media (max-height: 750px) {
             width: 3rem;
             height: 0.3rem;
             top: 4.25rem;
@@ -68,7 +93,14 @@
         rotate: 30deg;
         transform-origin: right bottom;
 
-        @include gs.display(mobile) {
+        @include gs.display(tablet) {
+            width: 3rem;
+            height: 0.3rem;
+            top: 4.25rem;
+            right: 0.25rem;
+        }
+
+        @media (max-height: 750px) {
             width: 3rem;
             height: 0.3rem;
             top: 4.25rem;
@@ -86,7 +118,14 @@
         rotate: 60deg;
         transform-origin: left bottom;
 
-        @include gs.display(mobile) {
+        @include gs.display(tablet) {
+            width: 3rem;
+            height: 0.3rem;
+            top: 7.25rem;
+            right: -2.75rem;
+        }
+
+        @media (max-height: 750px) {
             width: 3rem;
             height: 0.3rem;
             top: 7.25rem;
@@ -104,7 +143,14 @@
         rotate: -60deg;
         transform-origin: right bottom;
 
-        @include gs.display(mobile) {
+        @include gs.display(tablet) {
+            width: 3rem;
+            height: 0.3rem;
+            top: 7.25rem;
+            right: 0rem;
+        }
+
+        @media (max-height: 750px) {
             width: 3rem;
             height: 0.3rem;
             top: 7.25rem;
@@ -120,7 +166,12 @@
         top: 0;
         right: 0;
 
-        @include gs.display(mobile) {
+        @include gs.display(tablet) {
+            height: 2rem;
+            width: 0.2rem;
+        }
+
+        @media (max-height: 750px) {
             height: 2rem;
             width: 0.2rem;
         }
@@ -132,7 +183,13 @@
         background: gs.$drawing-color;
         margin-left: 6.5rem;
 
-        @include gs.display(mobile) {
+        @include gs.display(tablet) {
+            height: 0.3rem;
+            width: 7rem;
+            margin-left: 5rem;
+        }
+
+        @media (max-height: 750px) {
             height: 0.3rem;
             width: 7rem;
             margin-left: 5rem;
@@ -145,7 +202,13 @@
         background: gs.$drawing-color;
         margin-left: 6.5rem;
 
-        @include gs.display(mobile) {
+        @include gs.display(tablet) {
+            height: 13rem;
+            width: 0.3rem;
+            margin-left: 5rem;
+        }
+
+        @media (max-height: 750px) {
             height: 13rem;
             width: 0.3rem;
             margin-left: 5rem;
@@ -157,7 +220,12 @@
         width: 12.5rem;
         background: gs.$drawing-color;
 
-        @include gs.display(mobile) {
+        @include gs.display(tablet) {
+            height: 0.3rem;
+            width: 9.5rem;
+        }
+
+        @media (max-height: 750px) {
             height: 0.3rem;
             width: 9.5rem;
         }

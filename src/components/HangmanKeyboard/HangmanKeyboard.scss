@@ -9,6 +9,10 @@
         grid-template-columns: repeat(auto-fit, minmax(2.5rem, 1fr));
     }
 
+    @media (max-height: 750px) {
+        grid-template-columns: repeat(auto-fit, minmax(2.5rem, 1fr));
+    }
+
     &__btn {
         width: 100%;
         border: 3px solid black;
@@ -22,6 +26,10 @@
         color: black;
 
         @include gs.display(tablet) {
+            font-size: 1.25rem;
+        }
+
+        @media (max-height: 750px) {
             font-size: 1.25rem;
         }
 
