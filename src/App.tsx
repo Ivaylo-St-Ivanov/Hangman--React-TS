@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useContext } from 'react';
 
 import { ThemeContext } from './context/ThemeContext';
-import { agent } from './components/api/agent';
+import { getWord } from './components/api/wordGenerator';
 
 import Header from './components/Header/Header';
 import Info from './components/Info/Info';
@@ -10,48 +10,7 @@ import HangmanWord from './components/HangmanWord/HangmanWord';
 import HangmanKeyboard from './components/HangmanKeyboard/HangmanKeyboard';
 import Footer from './components/Footer/Footer';
 
-import words from './utils/wordsList.json';
 import './global-styles/App.scss';
-
-const getWord = async (wordLength: number, firstLetter: string, isUseTopWords: boolean) => {
-
-    if (isUseTopWords) {
-        if (wordLength >= 3 && wordLength <= 9) {
-            if (firstLetter) {
-                const filteredWords = words.filter(word => word.length == wordLength).filter(word => word[0] == firstLetter);
-                return filteredWords[Math.floor(Math.random() * filteredWords.length)];
-            } else {
-                const filteredWords = words.filter(word => word.length == wordLength);
-                return filteredWords[Math.floor(Math.random() * filteredWords.length)];
-            }
-        } else {
-            if (firstLetter) {
-                const filteredWords = words.filter(word => word[0] == firstLetter);
-                return filteredWords[Math.floor(Math.random() * filteredWords.length)];
-            } else {
-                return words[Math.floor(Math.random() * words.length)];
-            }
-        }
-    } else {
-        let word;
-
-        if (wordLength >= 3 && wordLength <= 9) {
-            if (firstLetter) {
-                word = await agent.getRandomWordWithFixedLengthAndFixedFirstLetter(wordLength, firstLetter);
-            } else {
-                word = await agent.getRandomWordWithFixedLength(wordLength);
-            }
-        } else {
-            if (firstLetter) {
-                word = await agent.getRandomWordWithFixedFirstLetter(firstLetter);
-            } else {
-                word = await agent.getRandomWord();
-            }
-        }
-
-        return word[0];
-    }
-};
 
 function App() {
     const [wordToGuess, setWordToGuess] = useState<string>('');
