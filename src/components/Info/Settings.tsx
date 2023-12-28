@@ -10,11 +10,14 @@ interface SettingsProps {
     onWordLengthChange: (wordLength: number) => void
     onFirstLetterChange: (firstLetter: string) => void
     onIsUseTopWordsChange: () => void
+    initialFirstLetter: string
 }
 
-const Settings: React.FC<SettingsProps> = ({ isSettingsClick, onWordLengthChange, onFirstLetterChange, onIsUseTopWordsChange }) => {
-    const [wordLengthInput, setWordLengthInput] = useState<number | ''>('');
-    const [isUseTopWords, setIsUseTopWords] = useState<boolean>(false);
+const Settings: React.FC<SettingsProps> = ({ isSettingsClick, onWordLengthChange, onFirstLetterChange, onIsUseTopWordsChange, initialFirstLetter }) => {
+    const localStorageWordLength = localStorage.getItem('wordLength');
+    const [wordLengthInput, setWordLengthInput] = useState<number | ''>(localStorageWordLength ? JSON.parse(localStorageWordLength) : '');
+    const localStorageIsUsedTopWords = localStorage.getItem('isUsedTopWords');
+    const [isUseTopWords, setIsUseTopWords] = useState<boolean>(localStorageIsUsedTopWords ? JSON.parse(localStorageIsUsedTopWords) : false);
 
     const handleWordLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newWordLength = Number(e.target.value);
@@ -25,6 +28,7 @@ const Settings: React.FC<SettingsProps> = ({ isSettingsClick, onWordLengthChange
     const onResetLength = () => {
         setWordLengthInput('');
         onWordLengthChange(0);
+        localStorage.removeItem('wordLength');
     };
 
     const handleUseTopWordsChange = () => {
@@ -50,7 +54,7 @@ const Settings: React.FC<SettingsProps> = ({ isSettingsClick, onWordLengthChange
             <hr />
 
             <label htmlFor="firstLetter"><b>First letter</b></label>
-            <select className="settings__letters" name="firstLetter" id="firstLetter">First Letter
+            <select className="settings__letters" defaultValue={initialFirstLetter} name="firstLetter" id="firstLetter">First Letter
                 <option onClick={() => onFirstLetterChange('')}>Clear</option>
                 {keys.map((k: string) => (
                     <option

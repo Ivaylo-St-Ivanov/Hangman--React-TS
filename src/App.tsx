@@ -15,9 +15,13 @@ import './global-styles/App.scss';
 function App() {
     const [wordToGuess, setWordToGuess] = useState<string>('');
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
-    const [wordLength, setWordLength] = useState<number>(0);
-    const [firstLetter, setFirstLetter] = useState<string>('');
-    const [isUseTopWords, setIsUseTopWords] = useState<boolean>(false);
+    
+    const localStorageWordLength = localStorage.getItem('wordLength');
+    const [wordLength, setWordLength] = useState<number>(localStorageWordLength ? JSON.parse(localStorageWordLength) : 0);
+    const localStorageFirstLetter = localStorage.getItem('firstLetter');
+    const [firstLetter, setFirstLetter] = useState<string>(localStorageFirstLetter ? JSON.parse(localStorageFirstLetter) : '');
+    const localStorageIsUsedTopWords = localStorage.getItem('isUsedTopWords');
+    const [isUseTopWords, setIsUseTopWords] = useState<boolean>(localStorageIsUsedTopWords ? JSON.parse(localStorageIsUsedTopWords) : false);
     const { isDarkTheme } = useContext(ThemeContext);
 
     const incorrectLetters = guessedLetters.filter(letter => !wordToGuess.includes(letter));
@@ -74,14 +78,20 @@ function App() {
 
     const handleWordLengthChange = (newWordLength: number) => {
         setWordLength(newWordLength);
+
+        localStorage.setItem('wordLength', JSON.stringify(newWordLength));
     };
 
     const handleFirstLetterChange = (letter: string) => {
         setFirstLetter(letter);
+
+        localStorage.setItem('firstLetter', JSON.stringify(letter));
     };
 
     const handleUseTopWordsChange = () => {
         setIsUseTopWords(state => !state);
+
+        localStorage.setItem('isUsedTopWords', JSON.stringify(!isUseTopWords));
     };
 
     return (
@@ -96,6 +106,7 @@ function App() {
                     onWordLengthChange={handleWordLengthChange}
                     onFirstLetterChange={handleFirstLetterChange}
                     onIsUseTopWordsChange={handleUseTopWordsChange}
+                    initialFirstLetter={firstLetter}
                 />
 
                 <div className="container__main__game">
