@@ -14,9 +14,24 @@ import words from './utils/wordsList.json';
 import './global-styles/App.scss';
 
 const getWord = async (wordLength: number, firstLetter: string, isUseTopWords: boolean) => {
-    
+
     if (isUseTopWords) {
-        return words[Math.floor(Math.random() * words.length)];
+        if (wordLength >= 3 && wordLength <= 9) {
+            if (firstLetter) {
+                const filteredWords = words.filter(word => word.length == wordLength).filter(word => word[0] == firstLetter);
+                return filteredWords[Math.floor(Math.random() * filteredWords.length)];
+            } else {
+                const filteredWords = words.filter(word => word.length == wordLength);
+                return filteredWords[Math.floor(Math.random() * filteredWords.length)];
+            }
+        } else {
+            if (firstLetter) {
+                const filteredWords = words.filter(word => word[0] == firstLetter);
+                return filteredWords[Math.floor(Math.random() * filteredWords.length)];
+            } else {
+                return words[Math.floor(Math.random() * words.length)];
+            }
+        }
     } else {
         let word;
 
@@ -33,7 +48,7 @@ const getWord = async (wordLength: number, firstLetter: string, isUseTopWords: b
                 word = await agent.getRandomWord();
             }
         }
-    
+
         return word[0];
     }
 };
