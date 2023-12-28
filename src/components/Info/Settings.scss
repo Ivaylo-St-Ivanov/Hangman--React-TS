@@ -1,3 +1,5 @@
+@use '../../global-styles/' as gs;
+
 .settings {
     &>label {
         margin-right: 0.75rem;
@@ -18,10 +20,59 @@
 
     &__letters {
         padding: 0.5rem;
+        border: 1px solid blue;
+        border-radius: 0.25rem;
+        box-shadow: 0px 0px 6px white;
         cursor: pointer;
 
         &>option {
             font-weight: bold;
+        }
+    }
+
+    &__top-words {
+        display: inline-block;
+        
+        &__button {
+            background-color: white;
+            border: 1px solid blue;
+            border-radius: 1.5rem;
+            box-shadow: 0px 0px 6px white;
+            width: 2.75rem;
+            cursor: pointer;
+            position: relative;
+            @include gs.flex(none, space-between, none);
+
+            &>svg {
+                font-size: 1.35rem;
+                padding: 0.15rem;
+    
+                &:first-of-type {
+                    color: rgb(17, 148, 17);
+                }
+    
+                &:last-of-type {
+                    color: red;
+                }
+            }
+    
+            &>span {
+                position: absolute;
+                top: 0.05rem;
+                width: 1.2rem;
+                height: 1.2rem;
+                background-color: #afaaaa;
+                border: 1px solid black;
+                border-radius: 50%;
+            }
+    
+            &__left {
+                left: 0;
+            }
+    
+            &__right {
+                right: 0;
+            }
         }
     }
 }

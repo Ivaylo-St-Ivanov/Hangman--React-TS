@@ -1,4 +1,4 @@
-import { useState, useEffect, KeyboardEvent, useCallback, useContext } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 
 import { ThemeContext } from './context/ThemeContext';
 import { agent } from './components/api/agent';
@@ -10,29 +10,32 @@ import HangmanWord from './components/HangmanWord/HangmanWord';
 import HangmanKeyboard from './components/HangmanKeyboard/HangmanKeyboard';
 import Footer from './components/Footer/Footer';
 
-// import words from './utils/wordsList.json';
+import words from './utils/wordsList.json';
 import './global-styles/App.scss';
 
-const getWord = async (wordLength: number, firstLetter: string) => {
-    // return words[Math.floor(Math.random() * words.length)];
-
-    let word;
-
-    if (wordLength >= 3 && wordLength <= 9) {
-        if (firstLetter) {
-            word = await agent.getRandomWordWithFixedLengthAndFixedFirstLetter(wordLength, firstLetter);
-        } else {
-            word = await agent.getRandomWordWithFixedLength(wordLength);
-        }
+const getWord = async (wordLength: number, firstLetter: string, isUseTopWords: boolean) => {
+    
+    if (isUseTopWords) {
+        return words[Math.floor(Math.random() * words.length)];
     } else {
-        if (firstLetter) {
-            word = await agent.getRandomWordWithFixedFirstLetter(firstLetter);
-        } else {
-            word = await agent.getRandomWord();
-        }
-    }
+        let word;
 
-    return word[0];
+        if (wordLength >= 3 && wordLength <= 9) {
+            if (firstLetter) {
+                word = await agent.getRandomWordWithFixedLengthAndFixedFirstLetter(wordLength, firstLetter);
+            } else {
+                word = await agent.getRandomWordWithFixedLength(wordLength);
+            }
+        } else {
+            if (firstLetter) {
+                word = await agent.getRandomWordWithFixedFirstLetter(firstLetter);
+            } else {
+                word = await agent.getRandomWord();
+            }
+        }
+    
+        return word[0];
+    }
 };
 
 function App() {
@@ -40,6 +43,7 @@ function App() {
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
     const [wordLength, setWordLength] = useState<number>(0);
     const [firstLetter, setFirstLetter] = useState<string>('');
+    const [isUseTopWords, setIsUseTopWords] = useState<boolean>(false);
     const { isDarkTheme } = useContext(ThemeContext);
 
     const incorrectLetters = guessedLetters.filter(letter => !wordToGuess.includes(letter));
@@ -49,12 +53,12 @@ function App() {
 
     useEffect(() => {
         const fetchWord = async () => {
-            const word = await getWord(wordLength, firstLetter);
+            const word = await getWord(wordLength, firstLetter, isUseTopWords);
             setWordToGuess(word);
         };
 
         fetchWord();
-    }, [wordLength, firstLetter]);
+    }, [wordLength, firstLetter, isUseTopWords]);
 
     const addGuessedLetter = useCallback(
         (letter: string) => {
@@ -68,7 +72,8 @@ function App() {
     );
 
     useEffect(() => {
-        const handler = async (e: KeyboardEvent) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const handler = async (e: any) => {                    // (e: KeyboardEvent)
             const key = e.key;
 
             if (key.match(/^[a-z]$/)) {
@@ -77,7 +82,7 @@ function App() {
             } else if (key == 'Enter') {
                 e.preventDefault();
                 setGuessedLetters([]);
-                setWordToGuess(await getWord(wordLength, firstLetter));
+                setWordToGuess(await getWord(wordLength, firstLetter, isUseTopWords));
             }
         };
 
@@ -86,11 +91,11 @@ function App() {
         return () => {
             document.removeEventListener('keypress', handler);
         };
-    }, [addGuessedLetter, guessedLetters, wordLength, firstLetter]);
+    }, [addGuessedLetter, guessedLetters, wordLength, firstLetter, isUseTopWords]);
 
     const refresh = async () => {
         setGuessedLetters([]);
-        setWordToGuess(await getWord(wordLength, firstLetter));
+        setWordToGuess(await getWord(wordLength, firstLetter, isUseTopWords));
     };
 
     const handleWordLengthChange = (newWordLength: number) => {
@@ -99,6 +104,10 @@ function App() {
 
     const handleFirstLetterChange = (letter: string) => {
         setFirstLetter(letter);
+    };
+
+    const handleUseTopWordsChange = () => {
+        setIsUseTopWords(state => !state);
     };
 
     return (
@@ -112,6 +121,7 @@ function App() {
                     wordToGuess={wordToGuess}
                     onWordLengthChange={handleWordLengthChange}
                     onFirstLetterChange={handleFirstLetterChange}
+                    onIsUseTopWordsChange={handleUseTopWordsChange}
                 />
 
                 <div className="container__main__game">

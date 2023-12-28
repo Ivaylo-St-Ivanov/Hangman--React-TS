@@ -16,9 +16,10 @@ interface InfoProps {
     wordToGuess: string
     onWordLengthChange: (wordLength: number) => void
     onFirstLetterChange: (firstLetter: string) => void
+    onIsUseTopWordsChange: () => void
 }
 
-const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengthChange, onFirstLetterChange }) => {
+const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengthChange, onFirstLetterChange, onIsUseTopWordsChange }) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const [isRuleClick, setIsRuleClick] = useState<boolean>(false);
     const [isHintClick, setIsHintClick] = useState<boolean>(false);
@@ -86,6 +87,7 @@ const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengt
                         isSettingsClick={isSettingsClick} 
                         onWordLengthChange={onWordLengthChange} 
                         onFirstLetterChange={onFirstLetterChange}
+                        onIsUseTopWordsChange={onIsUseTopWordsChange}
                     />
                 </span>
             </div>

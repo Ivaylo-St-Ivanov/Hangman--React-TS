@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FaCheck } from 'react-icons/fa';
+import { GoDash } from 'react-icons/go';
 
 import { keys } from '../../utils/keys';
 import './Settings.scss';
@@ -7,10 +9,12 @@ interface SettingsProps {
     isSettingsClick: boolean;
     onWordLengthChange: (wordLength: number) => void
     onFirstLetterChange: (firstLetter: string) => void
+    onIsUseTopWordsChange: () => void
 }
 
-const Settings: React.FC<SettingsProps> = ({ isSettingsClick, onWordLengthChange, onFirstLetterChange }) => {
+const Settings: React.FC<SettingsProps> = ({ isSettingsClick, onWordLengthChange, onFirstLetterChange, onIsUseTopWordsChange }) => {
     const [wordLengthInput, setWordLengthInput] = useState<number | ''>('');
+    const [isUseTopWords, setIsUseTopWords] = useState<boolean>(false);
 
     const handleWordLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newWordLength = Number(e.target.value);
@@ -21,6 +25,11 @@ const Settings: React.FC<SettingsProps> = ({ isSettingsClick, onWordLengthChange
     const onResetLength = () => {
         setWordLengthInput('');
         onWordLengthChange(0);
+    };
+
+    const handleUseTopWordsChange = () => {
+        setIsUseTopWords(state => !state);
+        onIsUseTopWordsChange();
     };
 
     return (
@@ -44,12 +53,24 @@ const Settings: React.FC<SettingsProps> = ({ isSettingsClick, onWordLengthChange
             <select className="settings__letters" name="firstLetter" id="firstLetter">First Letter
                 <option onClick={() => onFirstLetterChange('')}>Clear</option>
                 {keys.map((k: string) => (
-                    <option 
+                    <option
                         key={k}
                         onClick={() => onFirstLetterChange(k)}
                     >{k}</option>
                 ))}
             </select>
+
+            <hr />
+
+            <label htmlFor="topWords"><b>Top words</b></label>
+            <div onClick={handleUseTopWordsChange} className="settings__top-words">
+                <div className="settings__top-words__button">
+                    <FaCheck />
+                    <GoDash />
+                    <span className={`settings__top-words__button__${isUseTopWords ? 'right' : 'left'}`}></span>
+                </div>
+            </div>
+            <p>This option choose between top 3 000 words in English</p>
         </div>
     );
 };
