@@ -1,6 +1,11 @@
 @use '../../global-styles/' as gs;
 
 .settings {
+    &>h4 {
+        margin-top: unset;
+        text-decoration: underline;
+    }
+    
     &>label {
         margin-right: 0.75rem;
     }

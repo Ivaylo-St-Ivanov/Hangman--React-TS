@@ -1,4 +1,4 @@
-import allWords from '../../utils/wordsList.json';
+import allWords from '../utils/wordsList.json';
 import { agent } from './agent';
 
 const filterWordsByLength = (words: string[], length: number) => words.filter(word => word.length == length);

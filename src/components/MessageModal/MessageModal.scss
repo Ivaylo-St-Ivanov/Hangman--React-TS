@@ -1,0 +1,48 @@
+@use '../../global-styles/' as gs;
+
+.wrapper {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100dvh;
+    background-color: rgb(122, 120, 120, 0.6);
+    @include gs.flex(none, center, center);
+    z-index: 9;
+
+    &__modal {
+        background-color: rgba(240, 111, 111, 0.7);
+        border: 0.15rem solid black;
+        border-radius: 1.5rem;
+        box-shadow: 0px 0px 18px 8px #ffffff;
+        text-align: center;
+        backdrop-filter: blur(0.25rem);
+        animation: opacityShow 0.5 forwards;
+        -webkit-animation: opacityShow 0.5s forwards;
+        -moz-animation: opacityShow 0.5s forwards;
+        margin: 2rem;
+
+        &>div {
+            padding: 0.25rem 1rem 0.5rem 1rem;
+
+            &>p {
+                font-size: 1.3rem;
+                text-shadow: 1px 0px 1px #ffffff;
+            }
+
+            &>button {
+                margin: 0.5rem;
+                padding: 0.5rem 0.75rem;
+                border: 2px solid lightgray;
+                border-radius: 1.5rem;
+                background-color: #ffffff;
+                font-weight: bold;
+                cursor: pointer;
+
+                &:hover {
+                    box-shadow: 0px 0px 18px #ffffff;
+                    transition: 0.5s;
+                }
+            }
+        }
+    }
+}

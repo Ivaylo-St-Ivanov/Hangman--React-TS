@@ -18,9 +18,10 @@ interface InfoProps {
     onFirstLetterChange: (firstLetter: string) => void
     onIsUseTopWordsChange: () => void
     initialFirstLetter: string
+    isClickSettingsOnMessageModal: boolean
 }
 
-const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengthChange, onFirstLetterChange, onIsUseTopWordsChange, initialFirstLetter }) => {
+const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengthChange, onFirstLetterChange, onIsUseTopWordsChange, initialFirstLetter, isClickSettingsOnMessageModal }) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const [isRuleClick, setIsRuleClick] = useState<boolean>(false);
     const [isHintClick, setIsHintClick] = useState<boolean>(false);
@@ -30,6 +31,12 @@ const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengt
     const [score, setScore] = useState<string[]>(localStorageGuessedWords ? JSON.parse(localStorageGuessedWords) : []);
     const [guessedWords, setGuessedWords] = useState<number>(score.length);
     const [bestResult, setBestResult] = useState<number>(localStorageBestResult ? JSON.parse(localStorageBestResult) : 0);
+
+    useEffect(() => {
+        if (isClickSettingsOnMessageModal) {
+            setIsSettingsClick(true);
+        }
+    }, [isClickSettingsOnMessageModal]);
 
     useEffect(() => {
         localStorage.setItem('score', JSON.stringify(score));

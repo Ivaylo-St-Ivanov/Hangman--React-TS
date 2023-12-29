@@ -38,6 +38,8 @@ const Settings: React.FC<SettingsProps> = ({ isSettingsClick, onWordLengthChange
 
     return (
         <div className={`settings ${isSettingsClick ? 'click-icon' : 'content'}`}>
+            <h4>Filters</h4>
+
             <label htmlFor="wordLength"><b>Word length</b></label>
             <input
                 type="number"

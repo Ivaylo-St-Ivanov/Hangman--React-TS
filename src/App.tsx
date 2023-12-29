@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useContext } from 'react';
 
 import { ThemeContext } from './context/ThemeContext';
-import { getWord } from './components/api/wordGenerator';
+import { getWord } from './api/wordGenerator';
 
 import Header from './components/Header/Header';
 import Info from './components/Info/Info';
@@ -9,19 +9,23 @@ import HangmanDrawing from './components/HangmanDrawing/HangmanDrawing';
 import HangmanWord from './components/HangmanWord/HangmanWord';
 import HangmanKeyboard from './components/HangmanKeyboard/HangmanKeyboard';
 import Footer from './components/Footer/Footer';
+import MessageModal from './components/MessageModal/MessageModal';
 
 import './global-styles/App.scss';
 
 function App() {
     const [wordToGuess, setWordToGuess] = useState<string>('');
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
-    
+
     const localStorageWordLength = localStorage.getItem('wordLength');
     const [wordLength, setWordLength] = useState<number>(localStorageWordLength ? JSON.parse(localStorageWordLength) : 0);
     const localStorageFirstLetter = localStorage.getItem('firstLetter');
     const [firstLetter, setFirstLetter] = useState<string>(localStorageFirstLetter ? JSON.parse(localStorageFirstLetter) : '');
     const localStorageIsUsedTopWords = localStorage.getItem('isUsedTopWords');
     const [isUseTopWords, setIsUseTopWords] = useState<boolean>(localStorageIsUsedTopWords ? JSON.parse(localStorageIsUsedTopWords) : false);
+    
+    const [isShownModal, setIsShownModal] = useState<boolean>(false);
+    const [isClickSettingsOnMessageModal, setIsClickSettingsOnMessageModal] = useState<boolean>(false);
     const { isDarkTheme } = useContext(ThemeContext);
 
     const incorrectLetters = guessedLetters.filter(letter => !wordToGuess.includes(letter));
@@ -32,7 +36,12 @@ function App() {
     useEffect(() => {
         const fetchWord = async () => {
             const word = await getWord(wordLength, firstLetter, isUseTopWords);
-            setWordToGuess(word);
+
+            if (word != undefined) {
+                setWordToGuess(word);
+            } else {
+                setIsShownModal(true);
+            }
         };
 
         fetchWord();
@@ -60,7 +69,13 @@ function App() {
             } else if (key == 'Enter') {
                 e.preventDefault();
                 setGuessedLetters([]);
-                setWordToGuess(await getWord(wordLength, firstLetter, isUseTopWords));
+                const word = await getWord(wordLength, firstLetter, isUseTopWords);
+                
+                if (word != undefined) {
+                    setWordToGuess(word);
+                } else {
+                    setIsShownModal(true);
+                }
             }
         };
 
@@ -73,7 +88,13 @@ function App() {
 
     const refresh = async () => {
         setGuessedLetters([]);
-        setWordToGuess(await getWord(wordLength, firstLetter, isUseTopWords));
+        const word = await getWord(wordLength, firstLetter, isUseTopWords);
+        
+        if (word != undefined) {
+            setWordToGuess(word);
+        } else {
+            setIsShownModal(true);
+        }
     };
 
     const handleWordLengthChange = (newWordLength: number) => {
@@ -94,6 +115,11 @@ function App() {
         localStorage.setItem('isUsedTopWords', JSON.stringify(!isUseTopWords));
     };
 
+    const onClickSettingsOnMessageModal = () => {
+        setIsShownModal(false);
+        setIsClickSettingsOnMessageModal(state => !state);
+    };
+
     return (
         <div className={isDarkTheme ? 'container container-dark' : 'container'}>
             <Header />
@@ -107,6 +133,7 @@ function App() {
                     onFirstLetterChange={handleFirstLetterChange}
                     onIsUseTopWordsChange={handleUseTopWordsChange}
                     initialFirstLetter={firstLetter}
+                    isClickSettingsOnMessageModal={isClickSettingsOnMessageModal}
                 />
 
                 <div className="container__main__game">
@@ -133,6 +160,8 @@ function App() {
             </main>
 
             <Footer />
+
+            {isShownModal && <MessageModal onClickSettingsOnMessageModal={onClickSettingsOnMessageModal} />}
         </div>
     );
 }
