@@ -2,12 +2,8 @@
 
 footer {
     width: 100%;
+    padding: 0.5rem;
     @include gs.flex(none, center, none);
-    
-    @include gs.display(mobile) {
-        margin-top: 1rem;
-        padding-bottom: 0.5rem;
-    }
 
     &>.dark {
         color: lightblue;
