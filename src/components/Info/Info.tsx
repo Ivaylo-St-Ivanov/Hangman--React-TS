@@ -1,9 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { FaInfo } from 'react-icons/fa';
 import { GrInfo } from 'react-icons/gr';
 import { MdOutlineSettingsSuggest } from 'react-icons/md';
 
 import { ThemeContext } from '../../context/ThemeContext';
+import { mouseEvent } from '../../utils/utils';
 
 import InfoText from './InfoText';
 import HintText from './HintText';
@@ -26,11 +27,18 @@ const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengt
     const [isRuleClick, setIsRuleClick] = useState<boolean>(false);
     const [isHintClick, setIsHintClick] = useState<boolean>(false);
     const [isSettingsClick, setIsSettingsClick] = useState<boolean>(false);
+    const popupRef = useRef<HTMLElement>(null);
     const localStorageGuessedWords = localStorage.getItem('score');
     const localStorageBestResult = localStorage.getItem('bestResult');
     const [score, setScore] = useState<string[]>(localStorageGuessedWords ? JSON.parse(localStorageGuessedWords) : []);
     const [guessedWords, setGuessedWords] = useState<number>(score.length);
     const [bestResult, setBestResult] = useState<number>(localStorageBestResult ? JSON.parse(localStorageBestResult) : 0);
+
+    useEffect(() => {
+        mouseEvent(popupRef, isRuleClick, setIsRuleClick);
+        mouseEvent(popupRef, isHintClick, setIsHintClick);
+        mouseEvent(popupRef, isSettingsClick, setIsSettingsClick);
+    }, [isRuleClick, isHintClick, isSettingsClick]);
 
     useEffect(() => {
         if (isClickSettingsOnMessageModal) {
@@ -81,19 +89,19 @@ const Info: React.FC<InfoProps> = ({ isWinner, isLoser, wordToGuess, onWordLengt
     return (
         <div className="info">
             <div className={isDarkTheme ? 'info__icons info__icons__dark' : 'info__icons'}>
-                <span className="info__icons__rules">
-                    <FaInfo onClick={onRulesClick} />
+                <span ref={popupRef} className="info__icons__rules">
+                    <button><FaInfo onClick={onRulesClick} /></button>
                     <InfoText isRuleClick={isRuleClick} />
                 </span>
-                <span className="info__icons__hint">
-                    <GrInfo onClick={onHintsClick} />
+                <span ref={popupRef} className="info__icons__hint">
+                    <button><GrInfo onClick={onHintsClick} /></button>
                     <HintText isHintClick={isHintClick} />
                 </span>
-                <span className="info__icons__settings">
-                    <MdOutlineSettingsSuggest onClick={onSettingsClick} />
-                    <Settings 
-                        isSettingsClick={isSettingsClick} 
-                        onWordLengthChange={onWordLengthChange} 
+                <span ref={popupRef} className="info__icons__settings">
+                    <button><MdOutlineSettingsSuggest onClick={onSettingsClick} /></button>
+                    <Settings
+                        isSettingsClick={isSettingsClick}
+                        onWordLengthChange={onWordLengthChange}
                         onFirstLetterChange={onFirstLetterChange}
                         onIsUseTopWordsChange={onIsUseTopWordsChange}
                         initialFirstLetter={initialFirstLetter}

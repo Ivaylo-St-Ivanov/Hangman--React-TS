@@ -17,10 +17,10 @@
         background-image: linear-gradient(to top, #e20a0a, #ffe600e2);
         color: transparent;
         background-clip: text;
+        transition: all 1s ease;
 
         &:hover {
             transform: scale(1.1);
-            transition: 0.8s;
         }
 
         @include gs.display(mobile) {
@@ -44,22 +44,21 @@
         &>svg {
             font-size: 1.25rem;
             color: black;
+            transition: all 1s ease;
 
             @include gs.display(mobile) {
                 font-size: 1rem;
             }
         }
-
-        &__moon:hover {
-            color: yellow;
-            transition: 0.5s;
-        }
-
-        &__sun:hover {
-            color: orangered;
-            transition: 0.5s;
-        }
     }
+}
+
+.moon {
+    color: yellow !important;
+}
+
+.sun {
+    color: orangered !important;
 }
 
 .header-dark {

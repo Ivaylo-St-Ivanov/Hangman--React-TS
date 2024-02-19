@@ -13,14 +13,12 @@
         background-color: rgba(240, 111, 111, 0.7);
         border: 0.15rem solid black;
         border-radius: 1.5rem;
-        box-shadow: 0px 0px 18px 8px #ffffff;
+        box-shadow: 0px 0px 18px #ffffff;
         text-align: center;
         backdrop-filter: blur(0.25rem);
-        animation: opacityShow 0.5 forwards;
-        -webkit-animation: opacityShow 0.5s forwards;
-        -moz-animation: opacityShow 0.5s forwards;
         margin: 2rem;
-
+        animation: showToastModal 1s both;
+        
         &>div {
             padding: 0.25rem 1rem 0.5rem 1rem;
 
@@ -37,12 +35,24 @@
                 background-color: #ffffff;
                 font-weight: bold;
                 cursor: pointer;
+                transition: all 0.8s ease; 
 
                 &:hover {
                     box-shadow: 0px 0px 18px #ffffff;
-                    transition: 0.5s;
                 }
             }
         }
+    }
+}
+
+@keyframes showToastModal {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
 }

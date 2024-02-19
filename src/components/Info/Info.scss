@@ -21,9 +21,14 @@
         }
 
         &__rules {
-            &>svg:hover {
-                color: greenyellow;
+            &>button {
+                all: unset;
                 cursor: pointer;
+
+                &:hover,
+                &:focus {
+                    color: greenyellow;
+                }
             }
 
             &:hover .content {
@@ -32,9 +37,14 @@
         }
 
         &__hint {
-            &>svg:hover {
-                color: yellow;
+            &>button {
+                all: unset;
                 cursor: pointer;
+
+                &:hover,
+                &:focus {
+                    color: yellow;
+                }
             }
 
             &:hover .content {
@@ -45,9 +55,14 @@
         &__settings {
             font-size: 1.35rem;
 
-            &>svg:hover {
-                color: rgb(217, 0, 255);
+            &>button {
+                all: unset;
                 cursor: pointer;
+
+                &:hover,
+                &:focus {
+                    color: rgb(217, 0, 255);
+                }
             }
 
             &:hover .content {
@@ -93,7 +108,7 @@
     box-shadow: 0 0 0.5rem white;
     backdrop-filter: blur(0.3rem);
     z-index: 9;
-    animation: showText 0.8s forwards;
+    animation: showText 0.8s ease-out;
 
     @include gs.display(tablet) {
         width: 70%;
@@ -124,12 +139,12 @@
     0% {
         opacity: 0;
         transform: translate(110%);
-        transition: 0.5s;
+        // transition: 0.5s;
     }
 
     100% {
         opacity: 1;
         transform: translate(0);
-        transition: 0.5s;
+        // transition: 0.5s;
     }
 }
